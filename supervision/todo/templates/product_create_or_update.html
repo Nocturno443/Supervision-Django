@@ -1,0 +1,1059 @@
+{% extends "base.html" %}
+{% block content %}
+<form enctype="multipart/form-data" class="container" method="post" id="product_form">
+    {% csrf_token %}
+    <!-- main form start --- in our case product form -->
+    <div class="card">
+        <div class="card-header card-header-secondary">
+            <h4 class="card-title">Supervision</h4>
+        </div>
+        <div class="card-body">
+           
+                                
+                                        
+
+
+        {% if form %}
+            
+                                     
+                <!--label>{{field.label}}</label>
+                {% if field.field.required %}
+                    <span style="color: red;" class="required">*</span>
+                {% endif %}
+            
+                {{field}}
+                
+                {% if field.help_text %}
+                    <small style="color: grey">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                    <p style="color: red">{{ error }}</p>
+                {% endfor %}
+
+                {% if field == 'torre_pasillo_escalera' %}
+                <h1>Hello</h1>
+                {% endif %}  
+            -->
+             <div class="col-md-6">
+                        <label for="id_relevamiento">Relevamiento</label>
+                        {{ form.relevamiento }}
+                        {% for error in form.relevamiento.errors %}
+                            <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+             </div>
+
+             <div class="col-md-6">
+                        <label for="id_ficha_numero">Ficha</label>
+                        {{ form.ficha_numero }}
+                        {% for error in form.ficha.errors %}
+                            <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+             </div>
+             <div class="col-md-6">
+                        <label for="id_encuestador">Encuestador</label>
+                        {{ form.encuestador }}
+                        {% for error in form.encuestador.errors %}
+                            <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+             </div>
+             <div class="col-md-6" hidden>
+                        <label for="id_contadas">respondidas</label>
+                        {{ form.contadas }}
+                        {% for error in form.contadas.errors %}
+                            <span style="color: red">{{ error }}</span>
+                        {% endfor %}
+             </div>
+                  
+             <p>
+
+             <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                          Domicilio
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                          
+                        <div class="mb-3 row"> 
+                        <div class="col-md-3">
+                              <label for="id_provincia">Provincia</label>
+                              {{ form.provincia }}
+                              {% for error in form.provincia.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_partido">Partido</label>
+                              {{ form.partido }}
+                              {% for error in form.partido.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_municipio">Municipio</label>
+                              {{ form.municipio }}
+                              {% for error in form.municipio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-3">
+                              <label for="id_localidad">Localidad</label>
+                              {{ form.localidad }}
+                              {% for error in form.localidad.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_barrio">Barrio</label>
+                              {{ form.barrio }}
+                              {% for error in form.barrio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_fraccion">Fraccion</label>
+                              {{ form.fraccion }}
+                              {% for error in form.fraccion.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_radio">Radio</label>
+                              {{ form.radio }}
+                              {% for error in form.radio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_area">Area</label>
+                              {{ form.area }}
+                              {% for error in form.area.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_paraje">Paraje</label>
+                              {{ form.paraje }}
+                              {% for error in form.paraje.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-3">
+                              <label for="id_comunidad">Comunidad</label>
+                              {{ form.comunidad }}
+                              {% for error in form.comunidad.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_calle_tipo">Tipo de Calle</label>
+                              {{ form.calle_tipo }}
+                              {% for error in form.calle_tipo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_calle">Calle</label>
+                              {{ form.calle }}
+                              {% for error in form.calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                         <div class="col-md-3">
+                              <label for="id_altura">Altura</label>
+                              {{ form.altura }}
+                              {% for error in form.altura.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_piso">Piso</label>
+                              {{ form.piso }}
+                              {% for error in form.piso.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_departamento">Depto</label>
+                              {{ form.departamento }}
+                              {% for error in form.departamento.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                              <label for="id_torre_pasillo_escalera">Torre-Pasillo-Escalera</label>
+                              {{ form.torre_pasillo_escalera }}
+                              {% for error in form.torre_pasillo_escalera.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_entre_calle">Entre Calle</label>
+                              {{ form.entre_calle }}
+                              {% for error in form.entre_calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_y_calle">Y Calle</label>
+                              {{ form.y_calle }}
+                              {% for error in form.y_calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                              <label for="id_cp">Codigo_Postal</label>
+                              {{ form.cp }}
+                              {% for error in form.cp.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_manzana">Manzana</label>
+                              {{ form.manzana }}
+                              {% for error in form.manzana.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="id_telefono">Telefono</label>
+                              {{ form.telefono }}
+                              {% for error in form.telefono.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                              <label for="id_vivienda_ubicada">Vivienda Ubicada</label>
+                              {{ form.vivienda_ubicada }}
+                              {% for error in form.vivienda_ubicada.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                              <label for="id_vivienda_tipo">Tipo de Vivienda</label>
+                              {{ form.vivienda_tipo }}
+                              {% for error in form.vivienda_tipo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+						
+					            </div>	
+                        
+                                        
+                        
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p>
+                    <div class="col-md-6">
+                        <label for="id_total_personas">Nro de Personas</label>
+                        {{ form.total_personas }}
+                        {% for error in form.total_personas.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="col-md-6">
+                        <label for="id_omision_miembros">Hay omision de miembros?</label>
+                        {{ form.omision_miembros }}
+                        {% for error in form.omision_miembros.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <p>
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse14" aria-expanded="false" aria-controls="panelsStayOpen-collapse14">
+                            Conformacion del Hogar
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse14" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse13" aria-expanded="false" aria-controls="panelsStayOpen-collapse13">
+                            Educacion
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse13" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_asistio1">En este momento, asiste/asistio..?</label>
+                                            {{ form.asistio1 }}
+                                            {% for error in form.asistio1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_nivel_cursa1">¿Qué nivel cursa? </label>
+                                            {{ form.nivel_cursa1 }}
+                                            {% for error in form.nivel_cursa1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_asisttio2">En este momento, asiste/asistio..?</label>
+                                            {{ form.asisttio2 }}
+                                            {% for error in form.asistito2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_nivel_cursa2">¿Qué nivel cursa? </label>
+                                            {{ form.nivel_cursa2 }}
+                                            {% for error in form.nivel_cursa2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse12" aria-expanded="false" aria-controls="panelsStayOpen-collapse12">
+                            Trabajo
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse12" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_semana_anterior1">Durante la semana anterior trabajo…..?</label>
+                                            {{ form.semana_anterior1 }}
+                                            {% for error in form.semana_anterior1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_busco_trabajo1">En los últimos 30 días busco trabajo?</label>
+                                            {{ form.busco_trabajo1 }}
+                                            {% for error in form.busco_trabajo1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_descuentan_o_aporta1">Le descuentan o aporta por si mismo para la jubilación?</label>
+                                            {{ form.descuentan_o_aporta1 }}
+                                            {% for error in form.descuentan_o_aporta1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                       <div class="col-md-12">
+                                            <label for="id_semana_anterior2">Durante la semana anterior trabajo…..?</label>
+                                            {{ form.semana_anterior2 }}
+                                            {% for error in form.semana_anterior2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_busco_trabajo2">En los últimos 30 días busco trabajo?</label>
+                                            {{ form.busco_trabajo2 }}
+                                            {% for error in form.busco_trabajo2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_descuentan_o_aporta2">Le descuentan o aporta por si mismo para la jubilación?</label>
+                                            {{ form.descuentan_o_aporta2 }}
+                                            {% for error in form.descuentan_o_aporta2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse11" aria-expanded="false" aria-controls="panelsStayOpen-collapse11">
+                            Ingreso
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse11" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_ingresos_laborales1">Tuvo ingresos laborales por trabajo el mes pasado?</label>
+                                            {{ form.ingresos_laborales1 }}
+                                            {% for error in form.ingresos_laborales1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                               
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                       <div class="col-md-12">
+                                            <label for="id_ingresos_laborales2">Tuvo ingresos laborales por trabajo el mes pasado?</label>
+                                            {{ form.ingresos_laborales2 }}
+                                            {% for error in form.ingresos_laborales2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                               
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse10" aria-expanded="false" aria-controls="panelsStayOpen-collapse10">
+                            Programas Sociales
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse10" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_recibe_auh1">Algún integrante del hogar recibe AUH?</label>
+                                            {{ form.recibe_auh1 }}
+                                            {% for error in form.recibe_auh1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_quienes1">Quienes?</label>
+                                            {{ form.quienes1 }}
+                                            {% for error in form.quienes1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_programa_social1">Reciben algún programa social como…….</label>
+                                            {{ form.programa_social1 }}
+                                            {% for error in form.programa_social1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                      <div class="col-md-12">
+                                            <label for="id_recibe_auh2">Algún integrante del hogar recibe AUH?</label>
+                                            {{ form.recibe_auh2 }}
+                                            {% for error in form.recibe_auh2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_quienes2">Quienes?</label>
+                                            {{ form.quienes2 }}
+                                            {% for error in form.quienes2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_programa_social2">Reciben algún programa social como…….</label>
+                                            {{ form.programa_social2 }}
+                                            {% for error in form.programa_social2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse9" aria-expanded="false" aria-controls="panelsStayOpen-collapse9">
+                            Salud
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse9" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_cobertura1">Que cobertura de salud tiene?</label>
+                                            {{ form.cobertura1 }}
+                                            {% for error in form.cobertura1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_cronica1">Alguna vez un médico le diagnostico alguna enfermedad crónica……?</label>
+                                            {{ form.cronica1 }}
+                                            {% for error in form.cronica1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                                                                                                 
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_cobertura2">Que cobertura de salud tiene?</label>
+                                            {{ form.cobertura2 }}
+                                            {% for error in form.cobertura2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_cronica2">Alguna vez un médico le diagnostico alguna enfermedad crónica……?</label>
+                                            {{ form.cronica2 }}
+                                            {% for error in form.cronica2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse8" aria-expanded="false" aria-controls="panelsStayOpen-collapse8">
+                            Embarazo
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse8" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_embarazada1">Está embarazada?</label>
+                                            {{ form.embarazada1 }}
+                                            {% for error in form.embarazada1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                                                                                                    
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                       <div class="col-md-12">
+                                            <label for="id_embarazada2">Está embarazada?</label>
+                                            {{ form.embarazada2 }}
+                                            {% for error in form.embarazada2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse7" aria-expanded="false" aria-controls="panelsStayOpen-collapse7">
+                            Discapacidad
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse7" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                        
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_dificultad_permanente1">Tiene dificultad permanente para ver, oír, caminar etc……?</label>
+                                            {{ form.dificultad_permanente1 }}
+                                            {% for error in form.dificultad_permanente1.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                                                 
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_dificultad_permanente2">Tiene dificultad permanente para ver, oír, caminar etc……?</label>
+                                            {{ form.dificultad_permanente2 }}
+                                            {% for error in form.dificultad_permanente2.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                               
+                            </div>
+
+                            
+                          </div>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse6" aria-expanded="false" aria-controls="panelsStayOpen-collapse6">
+                            Vivienda
+                          </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapse6" class="accordion-collapse collapse">
+                          <div class="accordion-body">
+                            
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                                                               
+                                        
+                                        <div class="col-md-12">
+                                            <label for="id_material_pisos">Cuál es el material predominante de los pisos?</label>
+                                            {{ form.material_pisos }}
+                                            {% for error in form.material_pisos.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_agua_proviene">El agua para beber proviene?</label>
+                                            {{ form.agua_proviene }}
+                                            {% for error in form.agua_proviene.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_tiene_baño">Tiene baño?</label>
+                                            {{ form.tiene_baño }}
+                                            {% for error in form.tiene_baño.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_desague">El desagüe del inodoro es?</label>
+                                            {{ form.desague }}
+                                            {% for error in form.desague.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                                                               
+                            </div>
+                            
+                            
+                          </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                                            <label for="id_obs">Observaciones</label>
+                                            {{ form.obs }}
+                                            {% for error in form.obs.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                    </div>
+                    
+                    </div>
+                  
+
+
+
+            
+            
+        {% endif %}
+            </div>
+            </div>
+           
+    <!-- main form end --- in our case product form -->
+    <!-- inline form for Images start -->
+    <!-- EXPLAINING with named_formsets.images as formset -->
+    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+    <!-- Note: here images is our ImageFormSet name, used in get_named_formsets function in views.py -->
+    {% with named_formsets.images as formset %}  
+        {{ formset.management_form }}
+        <script type="text/html" id="images-template">   // id="inlineformsetname-template"
+            <tr id="images-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
+                {% for fields in formset.empty_form.hidden_fields %}
+                    {{ fields }}
+                {% endfor %}
+            
+                {% for fields in formset.empty_form.visible_fields %}
+                    <td>{{fields}}</td>
+                {% endfor %}
+            </tr>
+        </script>
+        <div hidden class="table-responsive card mt-4">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Add Images</h4>
+            </div>
+            <table class="table card-body">
+                <thead class="text-secondary">
+                    <th>Image <span style="color: red;" class="required">*</span></th>
+                    <th>Delete?</th>
+                    <th>Custom Delete btn</th>
+                </thead>
+                <tbody id="item-images">  <!-- id="item-inlineformsetname" -->
+                    <!-- formset non forms errors -->
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
+                    {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="images-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                                <td>
+                                    {{field}}
+                                    {% for error in field.errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                </td>
+                            {% endfor %}
+                            <!-- delete code -->
+                            {% if formss.instance.pk %}
+                                <td>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
+                                        Delete
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'delete_image' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>            
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="#" id="add-image-button" class="btn btn-secondary add-images">Add More</a> <!-- id="add-inlineformsetname-button" -->
+        </div>
+    {% endwith %}
+    <!-- inline form for Images end -->
+    <!-- inline form for Variant start -->
+    <!-- EXPLAINING with named_formsets.variants as formset -->
+    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+    <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
+    {% with named_formsets.variants as formset %}
+        {{ formset.management_form }}
+        <script type="text/html" id="variants-template">  // id="inlineformsetname-template"
+            // id='inlineformsetname-__prefix__' 
+            <tr id="variants-__prefix__" class= hide_all>
+                {% for fields in formset.empty_form.hidden_fields %}
+                    {{ fields }}
+                {% endfor %}
+            
+                {% for fields in formset.empty_form.visible_fields %}
+                    <td>{{fields}}</td>
+                {% endfor %}
+            </tr>
+        </script>
+        <div class="table-responsive card mt-4">
+            <div class="card-header card-header-secondary">
+                <h4 class="card-title">Agregar Personas</h4>
+            </div>
+            <table class="table card-header">
+                <thead class="text-secondary">
+                   
+                    <th>Nro.Persona</th>
+                    <th>Nombre....</th>
+                    <th>Fecha_Nacimiento</th>
+                    <th>Edad Años</th>
+                    <th>Edad Meses</th>
+                    <th>Sexo</th>
+                    <th>Identidad de Genero</th>
+                    <th>Apellido</th>
+                    <th>Parentesco con el Jefe</th>
+                    <th>Situacion Conyugal</th>
+                    <th>Pareja de</th>
+                    <th>Quien es la madre/padre?</th>
+                    <th>Quien es la madre/padre?</th>
+                    <th>Tipo de Doc</th>
+                    <th>Documento</th>
+                    <th>Pais</th>
+                    <th>Indigena</th>
+
+                    <th>Delete?</th>
+                    <th>Custom Delete btn</th>
+                </thead>
+                <tbody id="item-variants">  <!-- id="item-inlineformsetname" -->
+                    <!-- formset non forms errors -->
+                    {% for error in formset.non_form_errors %}
+                        <span style="color: red">{{ error }}</span>
+                    {% endfor %}
+                    {% for formss in formset %}
+                        {{ formss.management_form }}
+                        <tr id="variants-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                            {{ formss.id }}
+                            {% for field in formss.visible_fields %}
+                                <td>
+                                    {{field}}
+                                    {% for error in field.errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                    
+                                    {% comment %} {{ field.DELETE }} {% endcomment %}
+                                </td>
+                            {% endfor %}
+                            {% comment %} for delete {% endcomment %}
+                            {% if formss.instance.pk %}
+                                <td>
+                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
+                                        Delete
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <a href="{% url 'delete_variant' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                </td>            
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Add More</a> <!-- id="add-inlineformsetname-button" -->
+        </div>
+        
+        {% endwith %}
+        <!-- inline form for Images end -->
+        <div class="form-group">
+            <button type="submit" class="btn btn-secondary btn-block">Submit</button>
+        </div>
+</form>
+<p>
+<p>
+<p>     
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function() {
+        // when user clicks add more btn of images
+      $('.add-images').click(function(ev) {
+          ev.preventDefault();
+          var count = $('#item-images').children().length;
+          var tmplMarkup = $('#images-template').html();
+          var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+          $('#item-images').append(compiledTmpl);
+  
+          // update form count
+          $('#id_images-TOTAL_FORMS').attr('value', count+1);
+      });
+  });
+  $(document).ready(function() {
+    // when user clicks add more btn of variants
+      $('.add-variants').click(function(ev) {
+          ev.preventDefault();
+          var count = $('#item-variants').children().length;
+          var tmplMarkup = $('#variants-template').html();
+          var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+          $('#item-variants').append(compiledTmpl);
+  
+          // update form count
+          $('#id_variants-TOTAL_FORMS').attr('value', count+1);
+      });
+  });
+</script>
+        
+{% endblock content %}

@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="card">
+        <div class="card-header card-header-secondary">
+            <h4 class="card-title">Supervisiones</h4>
+            {% if user.is_authenticated %}
+            <a href="{% url 'create_product' %}">Realizar una nueva Supervision</a>
+        </div>
+        <ul>
+            {% for relevamiento, productos in resultados.items %}
+                <h3>{{ relevamiento.nombre }}</h3>
+                <ul>
+                    {% for producto in productos %}
+
+                    {% if producto.contadas < 6 %}
+
+                      <li class="card-body">{{ producto.ficha_numero }} | errores: {{ producto.contadas }} | estado: APROBADA | enc: {{ producto.encuestador }} | fecha: {{ producto.sup_fecha }}|<a href="{% url 'update_product' producto.id %}">Edit</a></li>
+
+                    {% else %}
+
+                      <li class="card-body">{{ producto.ficha_numero }} | errores: {{ producto.contadas }} | estado: RECHAZADA | enc: {{ producto.encuestador }} | fecha: {{ producto.sup_fecha }} |<a href="{% url 'update_product' producto.id %}">Edit</a></li>
+
+
+                    {% endif %}
+                   
+                    {% endfor %}
+                </ul>
+                {% empty %}
+                <p>No se encontraron productos </p>
+            {% endfor %}
+
+            
+            {% endif %}
+        </ul>
+    </div>
+    <div>...</div>
+{% endblock content %}

@@ -1,0 +1,452 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container text-center">
+    <div class="row">
+      </br> 
+      </br> 
+
+            <div class="col-12">
+              {% if form %}
+              
+              <form class="row g-3" method=POST id="post-form">
+                {% csrf_token %}
+                
+                  <div class="col-md-6">
+                        <label for="ficha">Ficha</label>
+                        {{ form.ficha_numero }}
+                        {% for error in form.ficha_numero.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                  </div>
+                  <div class="col-md-6">
+                        <label for="encuestador">Encuestador</label>
+                        {{ form.encuestador }}
+                        {% for error in form.encuestador.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                  </div>
+                  
+                  <p>
+
+                  <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
+                          Domicilio
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                        <div class="accordion-body">
+                          
+                          <div class="mb-3 row"> 
+                        <div class="col-md-3">
+                              <label for="provincia">Provincia</label>
+                              {{ form.provincia }}
+                              {% for error in form.provincia.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="partido">Partido</label>
+                              {{ form.partido }}
+                              {% for error in form.partido.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="municipio">Municipio</label>
+                              {{ form.municipio }}
+                              {% for error in form.municipio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-3">
+                              <label for="localidad">Localidad</label>
+                              {{ form.localidad }}
+                              {% for error in form.localidad.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="barrio">Barrio</label>
+                              {{ form.barrio }}
+                              {% for error in form.barrio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="fraccion">Fraccion</label>
+                              {{ form.fraccion }}
+                              {% for error in form.fraccion.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="radio">Radio</label>
+                              {{ form.radio }}
+                              {% for error in form.radio.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="area">Area</label>
+                              {{ form.area }}
+                              {% for error in form.area.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="paraje">Paraje</label>
+                              {{ form.paraje }}
+                              {% for error in form.paraje.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-3">
+                              <label for="comunidad">Comunidad</label>
+                              {{ form.comunidad }}
+                              {% for error in form.comunidad.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="calle_tipo">Tipo de Calle</label>
+                              {{ form.calle_tipo }}
+                              {% for error in form.calle_tipo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="calle">Calle</label>
+                              {{ form.fraccion }}
+                              {% for error in form.calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                         <div class="col-md-3">
+                              <label for="altura">Altura</label>
+                              {{ form.altura }}
+                              {% for error in form.altura.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="piso">Piso</label>
+                              {{ form.piso }}
+                              {% for error in form.piso.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="departamento">Depto</label>
+                              {{ form.departamento }}
+                              {% for error in form.departamento.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                              <label for="torre_pasillo_escalera">Torre-Pasillo-Escalera</label>
+                              {{ form.torre_pasillo_escalera }}
+                              {% for error in form.torre_pasillo_escalera.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="entre_calle">Entre Calle</label>
+                              {{ form.entre_calle }}
+                              {% for error in form.entre_calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="y_calle">Y Calle</label>
+                              {{ form.y_calle }}
+                              {% for error in form.y_calle.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                              <label for="cp">Codigo_Postal</label>
+                              {{ form.cp }}
+                              {% for error in form.cp.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="manzana">Manzana</label>
+                              {{ form.manzana }}
+                              {% for error in form.manzana.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="telefono">Telefono</label>
+                              {{ form.telefono }}
+                              {% for error in form.telefono.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                              <label for="vivienda_ubicada">Vivienda Ubicada</label>
+                              {{ form.vivienda_ubicada }}
+                              {% for error in form.vivienda_ubicada.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                              <label for="vivienda_tipo">Tipo de Vivienda</label>
+                              {{ form.vivienda_tipo }}
+                              {% for error in form.vivienda_tipo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+						
+					            </div>	
+                        
+                                        
+                        
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <p>
+                    <div class="col-md-6">
+                        <label for="total_personas">Nro de Personas</label>
+                        {{ form.total_personas }}
+                        {% for error in form.total_personas.errors %}
+                            <div class="error">{{ error }}</div>
+                        {% endfor %}
+                    </div>
+                    <p>
+
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                          Conformacion del Hogar
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                        </div>
+                      </div>
+                    </div>
+                    <div class="accordion-item">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                          Identificacion
+                        </button>
+                      </h2>
+                      <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          
+                          <div class="mb-3 row"> 
+
+                          <div class="col-md-3">
+                              <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                              {{ form1.fecha_nacimiento }}
+                              {% for error in form1.fecha_nacimiento.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="años">Cuantos años tiene?</label>
+                              {{ form1.años }}
+                              {% for error in form1.años.errors %}
+                                  <div class="años">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="meses">Cuantos Meses tiene?</label>
+                              {{ form1.meses }}
+                              {% for error in form1.meses.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="sexo">Sexo</label>
+                              {{ form1.sexo }}
+                              {% for error in form1.sexo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="genero">Genero</label>
+                              {{ form1.genero }}
+                              {% for error in form1.genero.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-3">
+                              <label for="comunidad">Apellido</label>
+                              {{ form1.apellido }}
+                              {% for error in form1.apellido.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="parentesco_jefe">Parentesco con el Jefe</label>
+                              {{ form1.parentesco_jefe }}
+                              {% for error in form1.parentesco_jefe.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="situacion_conyugal">Cual es su Situacion Conjugal?</label>
+                              {{ form1.situacion_conyugal }}
+                              {% for error in form1.situacion_conyugal.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                         <div class="col-md-3">
+                              <label for="pareja_de">Quien es pareja de..?</label>
+                              {{ form1.pareja_de }}
+                              {% for error in form1.pareja_de.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="madre_padre1">Quien es la Madre/Padre de..?</label>
+                              {{ form1.madre_padre1 }}
+                              {% for error in form1.madre_padre1.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="madre_padre2">Quien es la OTRA Madre/Padre de..?</label>
+                              {{ form1.madre_padre2 }}
+                              {% for error in form1.madre_padre2.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        <div class="col-md-6">
+                              <label for="documento_tipo">Tipo de Documento</label>
+                              {{ form1.documento_tipo }}
+                              {% for error in form1.documento_tipo.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="documento">Documento</label>
+                              {{ form1.documento }}
+                              {% for error in form1.documento.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-3">
+                              <label for="pais">Nacionalidad</label>
+                              {{ form1.pais }}
+                              {% for error in form1.pais.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+                        <div class="col-md-6">
+                              <label for="indigena">Pertenece a una Comunidad Indigena?</label>
+                              {{ form1.indigena }}
+                              {% for error in form1.indigena.errors %}
+                                  <div class="error">{{ error }}</div>
+                              {% endfor %}
+                        </div>
+
+                        </div>
+                        
+                          
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                          
+                <p>
+                <p>
+                <hr> 
+                <p>
+                <p> 
+                
+                <button type="submit" class="btn btn-secondary">INGRESAR</button>
+                 
+              </form>
+              {% endif %}  
+              
+            </div> 
+            </br>
+            </br>
+            </br>
+            </br>
+            <div class="col-12">
+              <div class="row row-cols-1 row-cols-md-2 g-4">
+                {% for meep in meeps %}
+                {% if meep.visita != 0 %}
+               
+               <div class="col">
+                <div class="card border-success mb-3">
+                   
+                     
+                      <img src="{% static 'images/houses.png' %}" class="img-fluid rounded-start" alt="Profile_Image">
+                     
+                     
+                       <div class="card-body">
+                         <h5 class="card-title">{{ meep.ficha }}</h5>
+                         <p class="card-text">Domicilio:{{ meep.domicilio }}</p>
+                         <p class="card-text">Visita:{{ meep.visita }}</p>
+                         <p class="card-text">Revisita:{{ meep.revisita }}</p>
+                         <p class="card-text">Referencia:{{ meep.ficha_ref }}</p>
+                         <p class="card-text">Usuario:{{ meep.user }}</p>
+                         <p class="card-text"><small class="text-body-secondary">fecha:{{ meep.created_at }}</small></p>
+                         {% if request.user.username == profile.user.username %}
+                              
+                           <a href="{% url 'edit_meep' meep.id %}"><button type="button" class="btn btn-outline-success btn-lg">Editar</button></a>     
+
+                         {% endif %}
+                       </div>
+                     
+                   </div>
+               </div>
+              
+
+               {% else %}
+
+               <div class="col">
+                <div class="card mb-3">
+                   
+                     
+                      <img src="{% static 'images/houses.png' %}" class="img-fluid rounded-start" alt="Profile_Image">
+                     
+                     
+                       <div class="card-body">
+                         <h5 class="card-title">{{ meep.ficha }}</h5>
+                         <p class="card-text">Domicilio:{{ meep.domicilio }}</p>
+                         <p class="card-text">Visita:{{ meep.visita }}</p>
+                         <p class="card-text">Revisita:{{ meep.revisita }}</p>
+                         <p class="card-text">Referencia:{{ meep.ficha_ref }}</p>
+                         <p class="card-text">Usuario:{{ meep.user }}</p>
+                         <p class="card-text"><small class="text-body-secondary">fecha:{{ meep.created_at }}</small></p>
+                         {% if request.user.username == profile.user.username %}
+                              
+                           <a href="{% url 'edit_meep' meep.id %}"><button type="button" class="btn btn-outline-success btn-lg">Editar</button></a>     
+
+                         {% endif %}
+                       </div>
+                     
+                   </div>
+               </div>
+               {% endif %}
+                 
+               <br/><br/>
+
+               {% endfor %}
+
+         </div>
+            
+                 
+
+
+{% endblock %}

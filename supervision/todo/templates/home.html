@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<h1>Supervision</h1>
+<div class="container text-center">
+    <div class="row">
+    
+            </br> 
+            </br> 
+            <p>
+                <a href="{% url 'formulario' %}"><button type="button" class="btn btn-outline-danger btn-lg">Nueva Supervision + </button></a>
+            <p>
+
+            <div class="col-12">
+              
+                
+                
+                        
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">#</th>
+                      <th scope="col">Ficha</th>
+                      <th scope="col">Encuestador</th>
+                      <th scope="col">Nro.Personas</th>
+                      <th scope="col">FechaSup</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for sups in sups %}
+                    <tr>
+                      <th scope="row"> <a href="{% url 'edit_form' sups.id %}"><button type="button" class="btn btn-outline-success btn-lg">Editar</button></a></th>
+                      <td>{{ sups.ficha_numero }}</td>
+                      <td>{{ sups.encuestador }}</td>
+                      <td>{{ sups.total_personas }}</td>
+                      <td>{{ sups.sup_fecha }}</td>
+                    </tr>
+                    {% endfor %}
+                    
+                  </tbody>
+                </table>
+              
+               
+                 
+               
+
+               
+              </div>
+
+      </div>         
+
+</div>
+                 
+
+
+{% endblock %}
