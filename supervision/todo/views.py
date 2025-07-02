@@ -331,6 +331,7 @@ def exportar_pdf(request):
     
 def exportar_excel(request):
     searched = request.GET.get('q', '')
+    print("Buscando:", searched)
     productos_filtrados = Product.objects.select_related('relevamiento').filter(
         Q(encuestador__icontains=searched) |
         Q(ficha_numero__icontains=searched) |

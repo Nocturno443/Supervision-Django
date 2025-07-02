@@ -14,7 +14,8 @@ def login_user(request):
             login(request, user)
             
             messages.success(request, ("Te has Logueado.."))
-            return render(request, 'product_list.html')
+            #return render(request, 'product_list.html')
+            return redirect('list_products')
         else:
             messages.success(request, ("Hubo un error, por favor trate de nuevo.."))
             return render(request, 'login.html', {})   

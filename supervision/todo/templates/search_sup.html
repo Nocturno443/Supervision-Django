@@ -19,6 +19,12 @@
             <div class="col">
                 <input type="text" class="form-control" placeholder="Fecha" aria-label="Fecha">
             </div>
+            <div class="col">
+
+                <a href="{% url 'exportar_excel' %}?q={{ searched }}" class="btn btn-success">Exportar Excel</a>
+
+                
+            </div>
             </div>
         </div>
         <ul>
