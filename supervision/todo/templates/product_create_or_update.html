@@ -45,7 +45,7 @@
              <div class="col-md-6">
                         <label for="id_ficha_numero">Ficha</label>
                         {{ form.ficha_numero }}
-                        {% for error in form.ficha.errors %}
+                        {% for error in form.ficha_numero.errors %}
                             <span style="color: red">{{ error }}</span>
                         {% endfor %}
              </div>
@@ -940,7 +940,7 @@
         </script>
         <div class="table-responsive card mt-4">
             <div class="card-header card-header-secondary">
-                <h4 class="card-title">Agregar Personas</h4>
+                <h4 class="card-title">Personas</h4>
             </div>
             <table class="table card-header">
                 <thead class="text-secondary">
@@ -1014,7 +1014,7 @@
                     {% endfor %}
                 </tbody>
             </table>
-            <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Add More</a> <!-- id="add-inlineformsetname-button" -->
+            <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Agregar Integrante</a> <!-- id="add-inlineformsetname-button" -->
         </div>
         
         {% endwith %}

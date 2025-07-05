@@ -19,7 +19,7 @@ class Relevamiento(models.Model):
 class Product(models.Model):
     
     sup_fecha = models.DateField(blank=True, null=True, auto_now_add=True)
-    relevamiento = models.ForeignKey(Relevamiento, on_delete=models.CASCADE,null=True)
+    relevamiento = models.ForeignKey(Relevamiento, on_delete=models.CASCADE,null=True, related_name='productos')
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     total_personas = models.IntegerField()
     encuestador = models.CharField(max_length=50,default='')

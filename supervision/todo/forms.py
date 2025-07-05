@@ -62,6 +62,13 @@ class ProductForm(forms.ModelForm):
 
         self.num_campos_contestados = campos_contestados
         return self.cleaned_data
+    
+    
+    def clean_ficha_numero(self):
+        ficha = self.cleaned_data['ficha_numero']
+        if Product.objects.filter(ficha_numero=ficha).exists():
+            raise forms.ValidationError("Este número de ficha ya fue procesado.")
+        return ficha
 
     
 

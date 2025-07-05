@@ -13,13 +13,12 @@
                 <option value="1">Meli</option>
                 <option value="2">Pablo</option>
                 <option value="3">Lili</option>
-                <option value="4">Charly</option>
                 </select>
             </div>
             <div class="col">
                 <input type="text" class="form-control" placeholder="Fecha" aria-label="Fecha">
             </div>
-            <div class="col">
+             <div class="col">
 
                 <a href="{% url 'exportar_excel' %}?q={{ searched }}" class="btn btn-success">Exportar Excel</a>
 
@@ -28,11 +27,10 @@
             </div>
         </div>
         <ul>
-            
             {% for relevamiento, productos in resultados.items %}
             <h3>{{ relevamiento.nombre }}</h3>
             <ul>
-                {% for producto in productos %}
+                
                                 
                 <table class="table table-striped table-hover">
                 <thead>
@@ -48,24 +46,24 @@
                     </tr>
                 </thead>
                 <tbody>
-                
+                {% for producto in productos %}
                   {% if producto.contadas < 6 %}   
                     <tr>
                     
                     <td>{{ producto.ficha_numero }}</td>
                     <td>{{ producto.encuestador }}</td>
-                    <td>{{ producto.user_id }}</td>
+                    <td>{{ producto.user.username }}</td>
                     <td>{{ producto.total_personas }}</td>
                     <td>{{ producto.contadas}}</td>
                     <td>APROBADA</td>
                     <td>{{ producto.sup_fecha}}</td>
                     </tr>
                    {% else %}
-                     <tr>
+                    <tr>
                           
                     <td>{{ producto.ficha_numero }}</td>
                     <td>{{ producto.encuestador }}</td>
-                    <td>{{ producto.user_id }}</td>
+                    <td>{{ producto.user.username }}</td>
                     <td>{{ producto.total_personas }}</td>
                     <td>{{ producto.contadas}}</td>
                     <td>RECHAZADA</td>
@@ -73,19 +71,18 @@
                     </tr>
                    {% endif %}
                 
+                {% endfor %}
+                
             
                     
                 </tbody>
             </table>
-
-
-
-                {% empty %}
-                <li>No hay productos para este relevamiento</li>
-                {% endfor %}
+             
+                
             </ul>
            {% endfor %}
            {% endif %}
+         
         </ul>
     </div>
     <div>...</div>

@@ -1,11 +1,5 @@
 from django.shortcuts import get_object_or_404,render,redirect
-#from django.http.response import HttpResponseRedirect
 from django.contrib import messages
-#from django import forms
-#from .models import Ficha_Dom, Ficha_Personas
-#from . forms import SupForm_ide, SupForm_dom,FichaInlineFormset
-#from django.contrib.auth import authenticate, login, logout
-#from django.forms import formset_factory, inlineformset_factory
 from django.contrib.auth.models import User
 
 from django.views.generic import ListView
@@ -265,8 +259,12 @@ def delete_variant(request, pk):
 
 def Listado_Sup(request):
      if request.user.is_authenticated:
-         relevamientos = Relevamiento.objects.prefetch_related('product_set')
-         return render(request, 'listados.html', {'relevamientos': relevamientos})
+        relevamientos = Relevamiento.objects.prefetch_related('productos')
+        print("relevamientos:", relevamientos)
+        # return render(request, 'listados.html', {'relevamientos': relevamientos})
+       
+  
+        return render(request, 'listados.html', {'relevamientos': relevamientos})
      
      else:
          messages.success(request,("Tenes que estar logueado"))
