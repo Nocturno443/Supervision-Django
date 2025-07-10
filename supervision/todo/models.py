@@ -21,10 +21,9 @@ class Product(models.Model):
     sup_fecha = models.DateField(blank=True, null=True, auto_now_add=True)
     relevamiento = models.ForeignKey(Relevamiento, on_delete=models.CASCADE,null=True, related_name='productos')
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    total_personas = models.IntegerField()
+    total_personas = models.IntegerField(default=0)
     encuestador = models.CharField(max_length=50,default='')
     ficha_numero = models.CharField(max_length=50,default='')
-    omision_miembros = models.BooleanField()
     contadas = models.IntegerField(default=0)
     obs = models.TextField(max_length=255,default='')
 
@@ -51,6 +50,10 @@ class Product(models.Model):
     telefono = models.BooleanField()
     vivienda_ubicada = models.BooleanField()
     vivienda_tipo = models.BooleanField()
+
+    omision_miembros = models.BooleanField()
+    inclusion_miembros = models.BooleanField()
+    respondente_valido = models.BooleanField()
 
     asistio1 = models.BooleanField()
     asisttio2 = models.BooleanField()

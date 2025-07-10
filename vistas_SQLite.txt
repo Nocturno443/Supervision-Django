@@ -1,0 +1,120 @@
+CREATE VIEW vista_errores_ficha AS
+SELECT 
+    ficha_numero,
+    SUM(
+	    (CASE WHEN asistio1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN busco_trabajo1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN cobertura1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cronica1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN descuentan_o_aporta1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN dificultad_permanente1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN embarazada1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN ingresos_laborales1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN nivel_cursa1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN programa_social1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN quienes1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN recibe_auh1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN semana_anterior1 = 1 THEN 1 ELSE 0 END)         
+    ) AS Respondente_Modulos,
+	 SUM(
+	    (CASE WHEN asisttio2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN busco_trabajo2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN cobertura2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cronica2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN descuentan_o_aporta2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN dificultad_permanente2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN embarazada2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN ingresos_laborales2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN nivel_cursa2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN programa_social2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN quienes2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN recibe_auh2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN semana_anterior2 = 1 THEN 1 ELSE 0 END)         
+    ) AS Menor_Menores,
+	 SUM(
+	    (CASE WHEN altura = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN area = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN barrio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN calle = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN comunidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cp = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN departamento = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN entre_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN fraccion = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN localidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN manzana = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN municipio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN paraje = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN partido = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN piso = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN provincia = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN radio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN telefono = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN y_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN entre_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN fraccion = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN localidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN manzana = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN municipio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN paraje = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN vivienda_ubicada = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN vivienda_tipo = 1 THEN 1 ELSE 0 END)         
+    ) AS Domicilio,
+	SUM(
+	    (CASE WHEN material_pisos = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN agua_proviene = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN tiene_baño = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN desague = 1 THEN 1 ELSE 0 END)                  
+    ) AS Vivienda,
+	SUM(
+	    (CASE WHEN inclusion_miembros = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN omision_miembros = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN respondente_valido = 1 THEN 1 ELSE 0 END)                  
+    ) AS Respondente
+	
+FROM todo_product
+group by ficha_numero
+
+
+
+select ficha_numero,
+CASE WHEN Respondente_Modulos > 2 or Menor_Menores > 2 or Domicilio > 1 or Vivienda > 1 or Respondente > 0 THEN 'RECHAZADA' 
+ELSE 'APROBADA' END as Estado
+ from vista_errores_ficha
+
+
+
+CREATE VIEW vista_errores_personas AS
+ select p.ficha_numero, v.nro_persona,
+SUM(
+	    (CASE WHEN v.documento = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN v.fecha_nacimiento = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.años = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN v.sexo = 1 THEN 1 ELSE 0 END)                  
+    ) AS Identificacion_grave,
+SUM(
+	    (CASE WHEN v.nombre = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN v.meses = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.genero = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.apellido = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.parentesco_jefe = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.situacion_conyugal = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.pareja_de = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.madre_padre1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.madre_padre2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN v.pais = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN v.indigena = 1 THEN 1 ELSE 0 END)                  
+    ) AS Identificacion_leve	
+
+ from todo_product p
+ inner join todo_variant v
+ on p.id = v.product_id
+ group by ficha_numero, nro_persona
+
+
+
+select ficha_numero, max(Identificacion_grave), max(Identificacion_leve), 
+CASE WHEN max(Identificacion_grave) > 1 or max(Identificacion_leve) > 2 THEN 'RECHAZADA' 
+ELSE 'APROBADA' END as Estado
+ from vista_errores_personas
+ group by ficha_numero

@@ -66,6 +66,7 @@
                   
              <p>
 
+            
              <div class="accordion" id="accordionPanelsStayOpenExample">
                     <div class="accordion-item">
                       <h2 class="accordion-header">
@@ -252,21 +253,194 @@
                     </div>
                     
                     <p>
-                    <div class="col-md-6">
+                    <div class="col-md-6" hidden>
                         <label for="id_total_personas">Nro de Personas</label>
                         {{ form.total_personas }}
                         {% for error in form.total_personas.errors %}
                             <div class="error">{{ error }}</div>
                         {% endfor %}
                     </div>
-                    <div class="col-md-6">
-                        <label for="id_omision_miembros">Hay omision de miembros?</label>
-                        {{ form.omision_miembros }}
-                        {% for error in form.omision_miembros.errors %}
-                            <div class="error">{{ error }}</div>
-                        {% endfor %}
-                    </div>
                     <p>
+
+                    <!-- inline form for Images start -->
+                    <!-- EXPLAINING with named_formsets.images as formset -->
+                    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+                    <!-- Note: here images is our ImageFormSet name, used in get_named_formsets function in views.py -->
+                    {% with named_formsets.images as formset %}  
+                        {{ formset.management_form }}
+                        <script type="text/html" id="images-template">   // id="inlineformsetname-template"
+                            <tr id="images-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
+                                {% for fields in formset.empty_form.hidden_fields %}
+                                    {{ fields }}
+                                {% endfor %}
+                            
+                                {% for fields in formset.empty_form.visible_fields %}
+                                    <td>{{fields}}</td>
+                                {% endfor %}
+                            </tr>
+                        </script>
+                        <div hidden class="table-responsive card mt-4">
+                            <div class="card-header card-header-secondary">
+                                <h4 class="card-title">Add Images</h4>
+                            </div>
+                            <table class="table card-body">
+                                <thead class="text-secondary">
+                                    <th>Image <span style="color: red;" class="required">*</span></th>
+                                    <th>Delete?</th>
+                                    <th>Custom Delete btn</th>
+                                </thead>
+                                <tbody id="item-images">  <!-- id="item-inlineformsetname" -->
+                                    <!-- formset non forms errors -->
+                                    {% for error in formset.non_form_errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                    {% for formss in formset %}
+                                        {{ formss.management_form }}
+                                        <tr id="images-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                                            {{ formss.id }}
+                                            {% for field in formss.visible_fields %}
+                                                <td>
+                                                    {{field}}
+                                                    {% for error in field.errors %}
+                                                        <span style="color: red">{{ error }}</span>
+                                                    {% endfor %}
+                                                </td>
+                                            {% endfor %}
+                                            <!-- delete code -->
+                                            {% if formss.instance.pk %}
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
+                                                        Delete
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="{% url 'delete_image' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </td>            
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="#" id="add-image-button" class="btn btn-secondary add-images">Add More</a> <!-- id="add-inlineformsetname-button" -->
+                        </div>
+                    {% endwith %}
+                    <!-- inline form for Images end -->
+                    <!-- inline form for Variant start -->
+                    <!-- EXPLAINING with named_formsets.variants as formset -->
+                    <!-- Note: named_formsets is used in get_context_data function in views.py -->
+                    <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
+                    {% with named_formsets.variants as formset %}
+                        {{ formset.management_form }}
+                        <script type="text/html" id="variants-template">  // id="inlineformsetname-template"
+                            // id='inlineformsetname-__prefix__' 
+                            <tr id="variants-__prefix__" class= hide_all>
+                                {% for fields in formset.empty_form.hidden_fields %}
+                                    {{ fields }}
+                                {% endfor %}
+                            
+                                {% for fields in formset.empty_form.visible_fields %}
+                                    <td>{{fields}}</td>
+                                {% endfor %}
+                            </tr>
+                        </script>
+                        <div class="table-responsive card mt-4">
+                            <div class="card-header card-header-secondary">
+                                <h4 class="card-title">Personas</h4>
+                            </div>
+                            <table class="table card-header">
+                                <thead class="text-secondary">
+                                
+                                    <th>Nro.Persona</th>
+                                    <th>Nombre....</th>
+                                    <th>Fecha_Nacimiento</th>
+                                    <th>Edad Años</th>
+                                    <th>Edad Meses</th>
+                                    <th>Sexo</th>
+                                    <th>Identidad de Genero</th>
+                                    <th>Apellido</th>
+                                    <th>Parentesco con el Jefe</th>
+                                    <th>Situacion Conyugal</th>
+                                    <th>Pareja de</th>
+                                    <th>Quien es la madre/padre?</th>
+                                    <th>Quien es la madre/padre?</th>
+                                    <th>Tipo de Doc</th>
+                                    <th>Documento</th>
+                                    <th>Pais</th>
+                                    <th>Indigena</th>
+
+                                    <th>Delete?</th>
+                                    <th>Custom Delete btn</th>
+                                </thead>
+                                <tbody id="item-variants">  <!-- id="item-inlineformsetname" -->
+                                    <!-- formset non forms errors -->
+                                    {% for error in formset.non_form_errors %}
+                                        <span style="color: red">{{ error }}</span>
+                                    {% endfor %}
+                                    {% for formss in formset %}
+                                        {{ formss.management_form }}
+                                        <tr id="variants-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
+                                            {{ formss.id }}
+                                            {% for field in formss.visible_fields %}
+                                                <td>
+                                                    {{field}}
+                                                    {% for error in field.errors %}
+                                                        <span style="color: red">{{ error }}</span>
+                                                    {% endfor %}
+                                                    
+                                                    {% comment %} {{ field.DELETE }} {% endcomment %}
+                                                </td>
+                                            {% endfor %}
+                                            {% comment %} for delete {% endcomment %}
+                                            {% if formss.instance.pk %}
+                                                <td>
+                                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
+                                                        Delete
+                                                    </button>
+                                                    <!-- Modal -->
+                                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
+                                                        <div class="modal-dialog" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                            </div>
+                                                            <div class="modal-footer">
+                                                                <a href="{% url 'delete_variant' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
+                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                    </div>
+                                                </td>            
+                                            {% endif %}
+                                        </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                            <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Agregar Integrante</a> <!-- id="add-inlineformsetname-button" -->
+                        </div>
+                        
+                        {% endwith %}
+                        <!-- inline form for Images end -->
+
+                    <hr> 
+                        
                     <div class="accordion-item">
                         <h2 class="accordion-header">
                           <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapse14" aria-expanded="false" aria-controls="panelsStayOpen-collapse14">
@@ -275,7 +449,44 @@
                         </h2>
                         <div id="panelsStayOpen-collapse14" class="accordion-collapse collapse">
                           <div class="accordion-body">
-                            <strong>This is the second item’s accordion body.</strong> It is hidden by default, until the collapse plugin adds the appropriate classes that we use to style each element. These classes control the overall appearance, as well as the showing and hiding via CSS transitions. You can modify any of this with custom CSS or overriding our default variables. It’s also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though the transition does limit overflow.
+                            
+                            <div class="row row-cols-1 row-cols-md-2 g-4">
+                                <div class="col">
+                                    <div class="card">
+                                    
+                                    <div class="card-body">
+                                        <h5 class="card-title">Respondente</h5>
+                                                                                
+                                        <div class="col-md-12">
+                                            <label for="id_respondente_valido">Es un respondente valido?</label>
+                                            {{ form.respondente_valido }}
+                                            {% for error in form.respondente_valido.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_omision_miembros">Hay omision de miembros?</label>
+                                            {{ form.omision_miembros }}
+                                            {% for error in form.omision_miembros.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="id_inclusion_miembros">Hay inclusion de miembros? </label>
+                                            {{ form.inclusion_miembros }}
+                                            {% for error in form.inclusion_miembros.errors %}
+                                                <div class="error">{{ error }}</div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                                                               
+                                        
+                                    </div>
+                                    </div>
+                                </div>
+                                                                                               
+                            </div>
+                            
                           </div>
                         </div>
                     </div>
@@ -321,7 +532,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                         <div class="col-md-12">
                                             <label for="id_asisttio2">En este momento, asiste/asistio..?</label>
@@ -399,7 +610,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                        <div class="col-md-12">
                                             <label for="id_semana_anterior2">Durante la semana anterior trabajo…..?</label>
@@ -471,7 +682,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                        <div class="col-md-12">
                                             <label for="id_ingresos_laborales2">Tuvo ingresos laborales por trabajo el mes pasado?</label>
@@ -543,7 +754,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                       <div class="col-md-12">
                                             <label for="id_recibe_auh2">Algún integrante del hogar recibe AUH?</label>
@@ -621,7 +832,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                         <div class="col-md-12">
                                             <label for="id_cobertura2">Que cobertura de salud tiene?</label>
@@ -685,7 +896,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                        <div class="col-md-12">
                                             <label for="id_embarazada2">Está embarazada?</label>
@@ -743,7 +954,7 @@
                                     <div class="card">
                                     
                                     <div class="card-body">
-                                        <h5 class="card-title">Menor de los Menores</h5>
+                                        <h5 class="card-title">Integrante del hogar de menor edad</h5>
                                         
                                         <div class="col-md-12">
                                             <label for="id_dificultad_permanente2">Tiene dificultad permanente para ver, oír, caminar etc……?</label>
@@ -843,182 +1054,7 @@
             </div>
            
     <!-- main form end --- in our case product form -->
-    <!-- inline form for Images start -->
-    <!-- EXPLAINING with named_formsets.images as formset -->
-    <!-- Note: named_formsets is used in get_context_data function in views.py -->
-    <!-- Note: here images is our ImageFormSet name, used in get_named_formsets function in views.py -->
-    {% with named_formsets.images as formset %}  
-        {{ formset.management_form }}
-        <script type="text/html" id="images-template">   // id="inlineformsetname-template"
-            <tr id="images-__prefix__" class= hide_all>  // id="inlineformsetname-__prefix__"
-                {% for fields in formset.empty_form.hidden_fields %}
-                    {{ fields }}
-                {% endfor %}
-            
-                {% for fields in formset.empty_form.visible_fields %}
-                    <td>{{fields}}</td>
-                {% endfor %}
-            </tr>
-        </script>
-        <div hidden class="table-responsive card mt-4">
-            <div class="card-header card-header-secondary">
-                <h4 class="card-title">Add Images</h4>
-            </div>
-            <table class="table card-body">
-                <thead class="text-secondary">
-                    <th>Image <span style="color: red;" class="required">*</span></th>
-                    <th>Delete?</th>
-                    <th>Custom Delete btn</th>
-                </thead>
-                <tbody id="item-images">  <!-- id="item-inlineformsetname" -->
-                    <!-- formset non forms errors -->
-                    {% for error in formset.non_form_errors %}
-                        <span style="color: red">{{ error }}</span>
-                    {% endfor %}
-                    {% for formss in formset %}
-                        {{ formss.management_form }}
-                        <tr id="images-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
-                            {{ formss.id }}
-                            {% for field in formss.visible_fields %}
-                                <td>
-                                    {{field}}
-                                    {% for error in field.errors %}
-                                        <span style="color: red">{{ error }}</span>
-                                    {% endfor %}
-                                </td>
-                            {% endfor %}
-                            <!-- delete code -->
-                            {% if formss.instance.pk %}
-                                <td>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
-                                        Delete
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="{% url 'delete_image' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </td>            
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="#" id="add-image-button" class="btn btn-secondary add-images">Add More</a> <!-- id="add-inlineformsetname-button" -->
-        </div>
-    {% endwith %}
-    <!-- inline form for Images end -->
-    <!-- inline form for Variant start -->
-    <!-- EXPLAINING with named_formsets.variants as formset -->
-    <!-- Note: named_formsets is used in get_context_data function in views.py -->
-    <!-- Note: here variants is our VariantFormSet name, used in get_named_formsets function in views.py -->
-    {% with named_formsets.variants as formset %}
-        {{ formset.management_form }}
-        <script type="text/html" id="variants-template">  // id="inlineformsetname-template"
-            // id='inlineformsetname-__prefix__' 
-            <tr id="variants-__prefix__" class= hide_all>
-                {% for fields in formset.empty_form.hidden_fields %}
-                    {{ fields }}
-                {% endfor %}
-            
-                {% for fields in formset.empty_form.visible_fields %}
-                    <td>{{fields}}</td>
-                {% endfor %}
-            </tr>
-        </script>
-        <div class="table-responsive card mt-4">
-            <div class="card-header card-header-secondary">
-                <h4 class="card-title">Personas</h4>
-            </div>
-            <table class="table card-header">
-                <thead class="text-secondary">
-                   
-                    <th>Nro.Persona</th>
-                    <th>Nombre....</th>
-                    <th>Fecha_Nacimiento</th>
-                    <th>Edad Años</th>
-                    <th>Edad Meses</th>
-                    <th>Sexo</th>
-                    <th>Identidad de Genero</th>
-                    <th>Apellido</th>
-                    <th>Parentesco con el Jefe</th>
-                    <th>Situacion Conyugal</th>
-                    <th>Pareja de</th>
-                    <th>Quien es la madre/padre?</th>
-                    <th>Quien es la madre/padre?</th>
-                    <th>Tipo de Doc</th>
-                    <th>Documento</th>
-                    <th>Pais</th>
-                    <th>Indigena</th>
-
-                    <th>Delete?</th>
-                    <th>Custom Delete btn</th>
-                </thead>
-                <tbody id="item-variants">  <!-- id="item-inlineformsetname" -->
-                    <!-- formset non forms errors -->
-                    {% for error in formset.non_form_errors %}
-                        <span style="color: red">{{ error }}</span>
-                    {% endfor %}
-                    {% for formss in formset %}
-                        {{ formss.management_form }}
-                        <tr id="variants-{{ forloop.counter0 }}" class= hide_all>  <!-- id="inlineformsetname-counter" -->
-                            {{ formss.id }}
-                            {% for field in formss.visible_fields %}
-                                <td>
-                                    {{field}}
-                                    {% for error in field.errors %}
-                                        <span style="color: red">{{ error }}</span>
-                                    {% endfor %}
-                                    
-                                    {% comment %} {{ field.DELETE }} {% endcomment %}
-                                </td>
-                            {% endfor %}
-                            {% comment %} for delete {% endcomment %}
-                            {% if formss.instance.pk %}
-                                <td>
-                                    <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{formss.instance.pk}}">
-                                        Delete
-                                    </button>
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="exampleModal{{formss.instance.pk}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel{{formss.instance.pk}}" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel{{formss.instance.pk}}">Are Your Sure You Want To Delete This?</h5>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <a href="{% url 'delete_variant' formss.instance.pk %}" type="button" class="btn btn-primary">Yes, Delete</a>
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </div>
-                                </td>            
-                            {% endif %}
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-            <a href="#" id="add-variant-button" class="btn btn-secondary add-variants">Agregar Integrante</a> <!-- id="add-inlineformsetname-button" -->
-        </div>
-        
-        {% endwith %}
-        <!-- inline form for Images end -->
+    
         <div class="form-group">
             <button type="submit" class="btn btn-secondary btn-block">Submit</button>
         </div>

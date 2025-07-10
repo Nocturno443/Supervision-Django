@@ -64,9 +64,19 @@ class ProductForm(forms.ModelForm):
         return self.cleaned_data
     
     
+    def __init__(self, *args, **kwargs):
+        self.instance = kwargs.get('instance', None)
+        super().__init__(*args, **kwargs)
+
     def clean_ficha_numero(self):
         ficha = self.cleaned_data['ficha_numero']
-        if Product.objects.filter(ficha_numero=ficha).exists():
+        qs = Product.objects.filter(ficha_numero=ficha)
+
+        # Excluir el objeto actual si existe
+        if self.instance and self.instance.pk:
+            qs = qs.exclude(pk=self.instance.pk)
+
+        if qs.exists():
             raise forms.ValidationError("Este número de ficha ya fue procesado.")
         return ficha
 
