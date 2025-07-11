@@ -1,3 +1,167 @@
+---consulta estados ficha x modulo
+
+DROP VIEW "vista_estado_fichas";
+CREATE VIEW vista_estado_fichas AS
+select tp.id, vep.ficha_numero, tp.encuestador, tp.sup_fecha, tp.contadas, tr.nombre as relevamiento, au.username,
+CASE WHEN Respondente_Educacion > 2 or Respondente_Discapacidad > 2 or Respondente_Embarazo > 2 
+or Respondente_Ingresos > 2 or Respondente_PSociales > 2 or Respondente_Salud > 2
+or Respondente_Trabajo > 2 
+or Menor_Educacion > 2 or Menor_Discapacidad > 2 or Menor_Embarazo > 2 
+or Menor_Ingresos > 2 or Menor_PSociales > 2 or Menor_Salud > 2 or Menor_Trabajo > 2
+or Domicilio > 1 or Vivienda > 1 or Conf_Hogar > 0 
+or max(vep.Identificacion_grave) > 1 or max(vep.Identificacion_leve) > 2
+THEN 'RECHAZADA' 
+ELSE 'APROBADA' END as Estado,   
+max(vep.Identificacion_grave) as Identificacion_grave, max(vep.Identificacion_leve) as Identificacion_leve, vef.Respondente_Educacion,
+ vef.Respondente_Discapacidad, vef.Respondente_Embarazo, vef.Respondente_Ingresos, vef.Respondente_PSociales, 
+ vef.Respondente_Salud, vef.Respondente_Trabajo, vef.Menor_Educacion, vef.Menor_Discapacidad, vef.Menor_Embarazo, 
+ vef.Menor_Ingresos, vef.Menor_PSociales,  vef.Menor_Salud, vef.Menor_Trabajo, vef.Domicilio, vef.Vivienda, vef.Conf_Hogar
+ from vista_errores_personas vep
+ inner join 
+ vista_errores_ficha vef
+ on vep.ficha_numero=vef.ficha_numero
+ inner join todo_product tp
+ on vep.ficha_numero=tp.ficha_numero
+ inner join todo_relevamiento tr
+ on tp.relevamiento_id=tr.id
+ inner join auth_user au
+ on tp.user_id=au.id
+ 
+ group by vep.ficha_numero
+ order by tp.id
+
+
+
+---consulta tabla de errores ficha
+select *,
+CASE WHEN Respondente_Educacion > 2 or Respondente_Discapacidad > 2 or Respondente_Embarazo > 2 
+or Respondente_Ingresos > 2 or Respondente_PSociales > 2 or Respondente_Salud > 2
+or Respondente_Trabajo > 2 
+or Menor_Educacion > 2 or Menor_Discapacidad > 2 or Menor_Embarazo > 2 
+or Menor_Ingresos > 2 or Menor_PSociales > 2 or Menor_Salud > 2 or Menor_Trabajo > 2
+or Domicilio > 1 or Vivienda > 1 or Conf_Hogar > 0 THEN 'RECHAZADA' 
+ELSE 'APROBADA' END as Estado
+from vista_errores_ficha
+
+
+---consulta x modulo
+CREATE VIEW vista_errores_ficha AS
+SELECT 
+    ficha_numero,
+    SUM(
+	    (CASE WHEN asistio1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN nivel_cursa1 = 1 THEN 1 ELSE 0 END) 
+               
+    ) AS Respondente_Educacion,
+	SUM(
+	    (CASE WHEN asisttio2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN nivel_cursa2 = 1 THEN 1 ELSE 0 END) 
+               
+    ) AS Menor_Educacion,
+	SUM(
+	    (CASE WHEN semana_anterior1 = 1 THEN 1 ELSE 0 END) +
+	    (CASE WHEN busco_trabajo1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN descuentan_o_aporta1 = 1 THEN 1 ELSE 0 END) 
+               
+    ) AS Respondente_Trabajo,
+	SUM(
+	    (CASE WHEN semana_anterior2 = 1 THEN 1 ELSE 0 END) +
+	    (CASE WHEN busco_trabajo2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN descuentan_o_aporta2 = 1 THEN 1 ELSE 0 END) 
+               
+    ) AS Menor_Trabajo,
+	SUM(
+	    (CASE WHEN ingresos_laborales1 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Respondente_Ingresos,
+	SUM(
+	    (CASE WHEN ingresos_laborales2 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Menor_Ingresos,
+	SUM(
+	    (CASE WHEN recibe_auh1 = 1 THEN 1 ELSE 0 END) + 
+		(CASE WHEN quienes1 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN programa_social1 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Respondente_PSociales,
+	SUM(
+	    (CASE WHEN recibe_auh2 = 1 THEN 1 ELSE 0 END) + 
+		(CASE WHEN quienes2 = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN programa_social2 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Menor_PSociales,
+	SUM(
+	    (CASE WHEN cobertura1 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cronica1 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Respondente_Salud,
+	SUM(
+	    (CASE WHEN cobertura2 = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cronica2 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Menor_Salud,
+	SUM(
+	    (CASE WHEN embarazada1 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Respondente_Embarazo,
+	SUM(
+	    (CASE WHEN embarazada2 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Menor_Embarazo,
+	SUM(
+	    (CASE WHEN dificultad_permanente1 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Respondente_Discapacidad,
+	SUM(
+	    (CASE WHEN dificultad_permanente2 = 1 THEN 1 ELSE 0 END) 
+	                  
+    ) AS Menor_Discapacidad,
+	SUM(
+	    (CASE WHEN altura = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN area = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN barrio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN calle = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN comunidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN cp = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN departamento = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN entre_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN fraccion = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN localidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN manzana = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN municipio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN paraje = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN partido = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN piso = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN provincia = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN radio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN telefono = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN y_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN entre_calle = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN fraccion = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN localidad = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN manzana = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN municipio = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN paraje = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN vivienda_ubicada = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN vivienda_tipo = 1 THEN 1 ELSE 0 END)         
+    ) AS Domicilio,
+	SUM(
+	    (CASE WHEN material_pisos = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN agua_proviene = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN tiene_baño = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN desague = 1 THEN 1 ELSE 0 END)                  
+    ) AS Vivienda,
+	SUM(
+	    (CASE WHEN inclusion_miembros = 1 THEN 1 ELSE 0 END) +
+		(CASE WHEN omision_miembros = 1 THEN 1 ELSE 0 END) +
+        (CASE WHEN respondente_valido = 1 THEN 1 ELSE 0 END)                  
+    ) AS Conf_Hogar
+	
+FROM todo_product
+group by ficha_numero
+
+
+---consulta vieja
 CREATE VIEW vista_errores_ficha AS
 SELECT 
     ficha_numero,

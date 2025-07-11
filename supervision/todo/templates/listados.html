@@ -19,8 +19,10 @@
             </div>
             </div>
         </div>
-          {% for relevamiento in relevamientos %}
-            <h3>{{ relevamiento.nombre }}</h3>
+          {% for relevamiento, fichas in relevamientos.items %}
+          
+            <h3>{{ relevamiento }}</h3>
+           
             <ul>
                 
                                 
@@ -31,40 +33,28 @@
                     <th scope="col">Ficha</th>
                     <th scope="col">Usuario</th>
                     <th scope="col">Supervisor</th>
-                    <th scope="col">CantPers</th>
+                    
                     <th scope="col">Errores</th>
                     <th scope="col">Estado</th>
                     <th scope="col">Fecha</th>
                     </tr>
                 </thead>
                 <tbody>
-                {% for producto in relevamiento.productos.all %} 
-                  {% if product.contadas < 6 %}   
+                {% for ficha in fichas %}
+                  
                     <tr>
                     
-                    <td>{{ producto.ficha_numero }}</td>
-                    <td>{{ producto.encuestador }}</td>
-                    <td>{{ producto.user.username }}</td>
-                    <td>{{ producto.total_personas }}</td>
-                    <td>{{ producto.contadas}}</td>
-                    <td>APROBADA</td>
-                    <td>{{ producto.sup_fecha}}</td>
+                    <td>{{ ficha.ficha_numero }}</td>
+                    <td>{{ ficha.encuestador }}</td>
+                    <td>{{ ficha.usuario }}</td>
+                    
+                    <td>{{ ficha.contadas}}</td>
+                    <td>{{ficha.estado}}</td>
+                    <td>{{ ficha.sup_fecha}}</td>
                     </tr>
-                   {% else %}
-                    <tr>
-                          
-                    <td>{{ producto.ficha_numero }}</td>
-                    <td>{{ producto.encuestador }}</td>
-                    <td>{{ producto.user.username }}</td>
-                    <td>{{ producto.total_personas }}</td>
-                    <td>{{ producto.contadas}}</td>
-                    <td>RECHAZADA</td>
-                    <td>{{ producto.sup_fecha}}</td>
-                    </tr>
-                   {% endif %}
-                
+                               
             
-                 {% endfor %}   
+                {% endfor %} 
                 </tbody>
             </table>
      

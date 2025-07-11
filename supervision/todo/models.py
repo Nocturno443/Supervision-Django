@@ -136,6 +136,39 @@ class Variant(models.Model):
         return self.product.ficha_numero
 
 
+class Fichas_Estado(models.Model):
+    
+    id = models.IntegerField(primary_key=True)
+    ficha_numero = models.CharField(max_length=100)
+    encuestador = models.CharField(max_length=100)
+    sup_fecha = models.CharField(max_length=100)
+    contadas = models.IntegerField(default=0)
+    relevamiento = models.CharField(max_length=100)
+    usuario = models.CharField(max_length=100)
+    estado = models.CharField(max_length=100)    
+    identificacion_grave = models.IntegerField(default=0)
+    identificacion_leve = models.IntegerField(default=0)
+    respondente_educacion = models.IntegerField(default=0)
+    respondente_discapacidad = models.IntegerField(default=0)
+    respondente_embarazo = models.IntegerField(default=0)
+    respondente_ingresos = models.IntegerField(default=0)
+    respondente_psociales = models.IntegerField(default=0)
+    respondente_salud = models.IntegerField(default=0)
+    respondente_trabajo = models.IntegerField(default=0)
+    menor_educacion = models.IntegerField(default=0)
+    menor_discapacidad = models.IntegerField(default=0)
+    menor_embarazo = models.IntegerField(default=0)
+    menor_ingresos = models.IntegerField(default=0)
+    menor_psociales = models.IntegerField(default=0)
+    menor_salud = models.IntegerField(default=0)
+    menor_trabajo = models.IntegerField(default=0)
+    domicilio = models.IntegerField(default=0)
+    vivienda = models.IntegerField(default=0)
+    conf_hogar = models.IntegerField(default=0)
+    
+    class Meta:
+        managed = False  # Django no intentará crear ni borrar esta tabla
+        db_table = 'vista_estado_fichas'  # Debe coincidir con el nombre de la vista
 
 
 

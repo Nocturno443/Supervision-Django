@@ -13,7 +13,8 @@ from .models import (
     Image,
     Product,
     Variant,
-    Relevamiento
+    Relevamiento,
+    Fichas_Estado
 )
 from django.db.models import Q
 from django.http import HttpResponse
@@ -23,7 +24,8 @@ from io import BytesIO
 from openpyxl import Workbook #sirve para exportar a Exell
 from django.utils.text import slugify
 import datetime
-
+from itertools import groupby
+from operator import attrgetter
 
 # Create your views here.
 
@@ -259,12 +261,15 @@ def delete_variant(request, pk):
 
 def Listado_Sup(request):
      if request.user.is_authenticated:
-        relevamientos = Relevamiento.objects.prefetch_related('productos')
-        print("relevamientos:", relevamientos)
+        registros = Fichas_Estado.objects.all().order_by('relevamiento')
+        #relevamientos = Relevamiento.objects.prefetch_related('productos')
+        #print("relevamientos:", relevamientos)
         # return render(request, 'listados.html', {'relevamientos': relevamientos})
-       
-  
+        
+        relevamientos = {k: list(g) for k, g in groupby(registros, key=attrgetter('relevamiento'))}
+        print("relevamientos:", relevamientos)
         return render(request, 'listados.html', {'relevamientos': relevamientos})
+        
      
      else:
          messages.success(request,("Tenes que estar logueado"))
@@ -274,21 +279,17 @@ def Listado_Sup(request):
 
 def Busquedas(request):
     searched = request.POST.get('searched', '')
-    productos_filtrados = Product.objects.select_related('relevamiento').filter(
+    productos_filtrados = Fichas_Estado.objects.all().order_by('relevamiento').filter(
         Q(encuestador__icontains=searched) |
         Q(ficha_numero__icontains=searched) |
-        Q(relevamiento__nombre__icontains=searched)
+        Q(relevamiento__icontains=searched)
 
     )
 
-    # Agrupamos los productos por relevamiento
-    relevamientos_con_productos = {}
-    for producto in productos_filtrados:
-        r = producto.relevamiento
-        relevamientos_con_productos.setdefault(r, []).append(producto)
+    relevamientos = {k: list(g) for k, g in groupby(productos_filtrados, key=attrgetter('relevamiento'))}
 
     return render(request, 'search_sup.html', {
-        'resultados': relevamientos_con_productos,
+        'resultados': relevamientos,
         'searched': searched
     })
 
@@ -330,26 +331,24 @@ def exportar_pdf(request):
 def exportar_excel(request):
     searched = request.GET.get('q', '')
     print("Buscando:", searched)
-    productos_filtrados = Product.objects.select_related('relevamiento').filter(
+    productos_filtrados = Fichas_Estado.objects.all().order_by('relevamiento').filter(
         Q(encuestador__icontains=searched) |
         Q(ficha_numero__icontains=searched) |
-        Q(relevamiento__nombre__icontains=searched)
+        Q(relevamiento__icontains=searched)
 
     )
 
     # Agrupamos los productos por relevamiento
-    relevamientos_con_productos = {}
-    for producto in productos_filtrados:
-        r = producto.relevamiento
-        relevamientos_con_productos.setdefault(r, []).append(producto)
-
+    relevamientos_con_productos = {k: list(g) for k, g in groupby(productos_filtrados, key=attrgetter('relevamiento'))}
 
     wb = Workbook()
     ws = wb.active
     ws.title = "Productos"
 
     # Encabezados
-    columnas = ["Ficha", "Encuestador", "Supervisor", "Relevamiento", "Cant.Pers.", "Errores", "Estado","Fecha"]
+    columnas = ["Ficha", "Encuestador", "Fecha", "Errores", "Relevamiento", "Supervisor", "Estado", "Ident_Grave", "Ident_Leve", "Resp_Educacion",
+                "Resp_Discapacidad", "Resp_Embarazo", "Resp_Ingresos", "Resp_PSociales", "Resp_Salud", "Resp_Trabajo", "Menor_Educacion",
+                "Menor_Discapacidad", "Menor_Embarazo", "Menor_Ingresos", "Menor_PSociales", "Menor_Salud", "Menor_Salud", "Domicilio", "Vivienda", "Conf_Hogar"]
     ws.append(columnas)
 
     # Datos
@@ -357,12 +356,31 @@ def exportar_excel(request):
         ws.append([
             p.ficha_numero,
             p.encuestador,
-            str(p.user), 
-            str(p.relevamiento),
-            p.total_personas,
+            p.sup_fecha.strftime('%Y-%m-%d') if p.sup_fecha else '',
             p.contadas,
-            'APROBADA' if p.contadas < 7 else 'RECHAZADA',
-            p.sup_fecha.strftime('%Y-%m-%d') if p.sup_fecha else ''
+            p.relevamiento,
+            p.usuario,
+            p.estado,
+            p.identificacion_grave,
+            p.identificacion_leve,
+            p.respondente_educacion,
+            p.respondente_discapacidad,
+            p.respondente_embarazo,
+            p.respondente_ingresos,
+            p.respondente_psociales,
+            p.respondente_salud,
+            p.respondente_trabajo,
+            p.menor_educacion,
+            p.menor_discapacidad,
+            p.menor_embarazo,
+            p.menor_ingresos,
+            p.menor_psociales,
+            p.menor_salud,
+            p.menor_trabajo,
+            p.domicilio,
+            p.vivienda,
+            p.conf_hogar
+            
         ])
     
     hoy = datetime.datetime.now().strftime('%Y-%m-%d')
